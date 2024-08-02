@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="static/CSS/stile.css">
+    <title>Calculadora de Plano de Amostragem Ideal</title>
+</head>
+<body>
+    <main id="container">
+        <section id="img">
+            <img src="static/images/ilustration.svg">
+        </section>
+        <section id="calculator">
+            <form method="post">
+                <h1 id="title">Calculadora de Plano de Amostragem Ideal</h1>
+                <div class="input-box">
+                    <label for="lote">Tamanho do Lote</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                        <input type="number" name="lote" required>
+                        <span>un</span>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <label for="nqa">Nível de qualidade aceitável (NQA)</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        <input type="number" step="0.01" name="nqa" required>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <label for="ptdl">Percentual tolerável de defeitos no lote (PTDL)</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-xmark"></i>
+                        <input type="number" step="0.01" name="ptdl" required>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <label for="riscos-fornecedor">Risco máximo aceito pelo fornecedor</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <input type="number" step="0.001" name="riscos-fornecedor" required>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <label for="riscos-consumidor">Risco máximo aceito pelo consumidor</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-square-xmark"></i>
+                        <input type="number" step="0.001" name="riscos-consumidor" required>
+                    </div>
+                </div>
+                <button type="submit">Calcular</button>
+            </form>
+            {% if resultado %}
+            <div id="infos">
+                <div id="result">
+                    <div id="bmi">
+                        <span id="value">
+                            Tamanho da amostra: {{ resultado.tamanho_amostra}}<br>
+                            Índice de aceitação máxima: {{ resultado.aceitacao_maxima }}<br>
+                            Risco do fornecedor: {{ resultado.risco_fornecedor }}<br>
+                            Risco do consumidor: {{ resultado.risco_consumidor }}
+                        </span>
+                        <span>Resultado</span>
+                    </div>
+                    <div id="description">
+                        <span id="descricao"></span>
+                    </div>
+                </div>
+            </div>
+            {% elif resultado is not none %}
+            <div id="infos">
+                <div id="result">
+                    <span id="value">Nenhum plano amostral encontrado.</span>
+                    <span id="descricao">Verifique os parâmetros e tente novamente.</span>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
